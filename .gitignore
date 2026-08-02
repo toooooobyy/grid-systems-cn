@@ -1,0 +1,8 @@
+# Large page images (downloaded separately)
+# assets/pages/ are large but essential for the website
+# Keep them tracked
+
+# Temp files
+.DS_Store
+Thumbs.db
+*.log
