@@ -292,27 +292,182 @@
     .page-text-area::-webkit-scrollbar-track { background: transparent; }
     .page-text-area::-webkit-scrollbar-thumb { background: #ccc; }
 
+
+    /* === Hamburger Menu === */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      position: absolute;
+      top: 1.2rem;
+      right: 1rem;
+      z-index: 200;
+      width: 36px;
+      height: 28px;
+    }
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: #fff;
+      margin: 5px 0;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 6px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -6px);
+    }
+
+    /* === Overlay === */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      z-index: 99;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .overlay.visible {
+      display: block;
+      opacity: 1;
+    }
+
+    /* === Mobile Top Bar === */
+    .mobile-top-bar {
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: #111;
+      color: #fff;
+      padding: 0.8rem 1rem;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .mobile-top-bar .mobile-title {
+      font-family: 'BricolageGrotesque', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      line-height: 1.3;
+    }
+    .mobile-top-bar .mobile-menu-btn {
+      background: none;
+      border: 1px solid #555;
+      color: #fff;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'WorkSans', sans-serif;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .mobile-top-bar .mobile-menu-btn:active {
+      background: #e2001a;
+      border-color: #e2001a;
+    }
+
     /* Responsive */
     @media (max-width: 900px) {
-      .sidebar { width: 240px; }
-      .main-content { margin-left: 240px; max-width: calc(100vw - 240px); }
-      .page-image-area { flex: 0 0 42%; max-width: 42%; padding: 1rem; }
-      .page-text-area { flex: 0 0 58%; max-width: 58%; padding: 1.5rem; }
+      .sidebar { width: 260px; }
+      .main-content { margin-left: 260px; max-width: calc(100vw - 260px); }
+      .page-image-area { flex: 0 0 45%; max-width: 45%; padding: 1rem; }
+      .page-text-area { flex: 0 0 55%; max-width: 55%; padding: 1.5rem; }
     }
-    @media (max-width: 700px) {
+
+    @media (max-width: 768px) {
       body { flex-direction: column; }
-      .sidebar { position: relative; width: 100%; height: auto; max-height: 35vh; }
-      .main-content { margin-left: 0; max-width: 100%; }
-      .page-entry { flex-direction: column; min-height: auto; }
-      .page-image-area { flex: none; max-width: 100%; position: static; height: auto; padding: 1rem; }
-      .page-image-area img { max-height: 60vh; }
-      .page-text-area { flex: none; max-width: 100%; max-height: none; padding: 1.5rem; }
+      .hamburger { display: block; }
+      .overlay { display: none; }
+      .overlay.visible { display: block; }
+
+      .sidebar {
+        position: fixed;
+        top: 0; left: 0;
+        width: 280px;
+        height: 100vh;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 150;
+        box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+        max-width: 100%;
+      }
+
+      .page-entry {
+        flex-direction: column;
+        min-height: auto;
+      }
+
+      .page-image-area {
+        flex: none;
+        max-width: 100%;
+        position: static;
+        height: auto;
+        padding: 0.5rem;
+        background: #e8e8e8;
+      }
+      .page-image-area img {
+        max-height: 50vh;
+        width: auto;
+        max-width: 100%;
+      }
+
+      .page-text-area {
+        flex: none;
+        max-width: 100%;
+        max-height: none;
+        padding: 1.2rem 1rem;
+      }
+
+      .page-title-cn { font-size: 1.25rem; }
+      .translation-content { font-size: 0.9rem; }
+      .translation-content h3 { font-size: 1.05rem; }
+
+      .page-number-badge {
+        font-size: 0.65rem;
+        padding: 0.15rem 0.5rem;
+      }
+
+      .ocr-details summary { font-size: 0.65rem; }
+      .ocr-text { font-size: 0.65rem; max-height: 200px; }
+    }
+
+    @media (max-width: 480px) {
+      .page-image-area { padding: 0.25rem; }
+      .page-image-area img { max-height: 40vh; }
+      .page-text-area { padding: 1rem 0.8rem; }
+      .page-title-cn { font-size: 1.1rem; }
+      .translation-content { font-size: 0.85rem; }
+      .translation-content h3 { font-size: 0.95rem; }
     }
   </style>
 </head>
 <body>
-  <aside class="sidebar">
+  <div class="overlay" id="overlay"></div>
+  <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
+      <button class="hamburger" id="hamburger-btn" aria-label="菜单">
+        <span></span><span></span><span></span>
+      </button>
       <h1>平面设计中的<br>网格系统</h1>
       <div class="subtitle">Grid Systems in Graphic Design</div>
       <div class="author">Josef Müller-Brockmann</div>
@@ -466,7 +621,7 @@
 
     <section class="page-entry" id="page-001">
       <div class="page-image-area">
-        <img src="./assets/pages/page_001.jpg" alt="第1页" loading="lazy">
+        <img src="./assets/pages_webp/page_001.webp" alt="第1页" loading="lazy">
         <div class="page-number">p.1</div>
       </div>
       <div class="page-text-area">
@@ -504,7 +659,7 @@ F E E</div>
     </section>
     <section class="page-entry" id="page-002">
       <div class="page-image-area">
-        <img src="./assets/pages/page_002.jpg" alt="第2页" loading="lazy">
+        <img src="./assets/pages_webp/page_002.webp" alt="第2页" loading="lazy">
         <div class="page-number">p.2</div>
       </div>
       <div class="page-text-area">
@@ -562,7 +717,7 @@ List of artists 176 Kunstlerverzeichnis 176
     </section>
     <section class="page-entry" id="page-003">
       <div class="page-image-area">
-        <img src="./assets/pages/page_003.jpg" alt="第3页" loading="lazy">
+        <img src="./assets/pages_webp/page_003.webp" alt="第3页" loading="lazy">
         <div class="page-number">p.3</div>
       </div>
       <div class="page-text-area">
@@ -616,7 +771,7 @@ he development of regulative systhems in visual cammuni- Vertretc.r der sachl...
     </section>
     <section class="page-entry" id="page-004">
       <div class="page-image-area">
-        <img src="./assets/pages/page_004.jpg" alt="第4页" loading="lazy">
+        <img src="./assets/pages_webp/page_004.webp" alt="第4页" loading="lazy">
         <div class="page-number">p.4</div>
       </div>
       <div class="page-text-area">
@@ -663,7 +818,7 @@ i
     </section>
     <section class="page-entry" id="page-005">
       <div class="page-image-area">
-        <img src="./assets/pages/page_005.jpg" alt="第5页" loading="lazy">
+        <img src="./assets/pages_webp/page_005.webp" alt="第5页" loading="lazy">
         <div class="page-number">p.5</div>
       </div>
       <div class="page-text-area">
@@ -719,7 +874,7 @@ ignorant of such a systhem for e...</div>
     </section>
     <section class="page-entry" id="page-006">
       <div class="page-image-area">
-        <img src="./assets/pages/page_006.jpg" alt="第6页" loading="lazy">
+        <img src="./assets/pages_webp/page_006.webp" alt="第6页" loading="lazy">
         <div class="page-number">p.6</div>
       </div>
       <div class="page-text-area">
@@ -765,7 +920,7 @@ inthelligib...</div>
     </section>
     <section class="page-entry" id="page-007">
       <div class="page-image-area">
-        <img src="./assets/pages/page_007.jpg" alt="第7页" loading="lazy">
+        <img src="./assets/pages_webp/page_007.webp" alt="第7页" loading="lazy">
         <div class="page-number">p.7</div>
       </div>
       <div class="page-text-area">
@@ -819,7 +974,7 @@ precisely...</div>
     </section>
     <section class="page-entry" id="page-008">
       <div class="page-image-area">
-        <img src="./assets/pages/page_008.jpg" alt="第8页" loading="lazy">
+        <img src="./assets/pages_webp/page_008.webp" alt="第8页" loading="lazy">
         <div class="page-number">p.8</div>
       </div>
       <div class="page-text-area">
@@ -870,7 +1025,7 @@ constructive contribution to the cultural stat...</div>
     </section>
     <section class="page-entry" id="page-009">
       <div class="page-image-area">
-        <img src="./assets/pages/page_009.jpg" alt="第9页" loading="lazy">
+        <img src="./assets/pages_webp/page_009.webp" alt="第9页" loading="lazy">
         <div class="page-number">p.9</div>
       </div>
       <div class="page-text-area">
@@ -922,7 +1077,7 @@ added credibility to the information and ...</div>
     </section>
     <section class="page-entry" id="page-010">
       <div class="page-image-area">
-        <img src="./assets/pages/page_010.jpg" alt="第10页" loading="lazy">
+        <img src="./assets/pages_webp/page_010.webp" alt="第10页" loading="lazy">
         <div class="page-number">p.10</div>
       </div>
       <div class="page-text-area">
@@ -979,7 +1134,7 @@ The reader will see that the next largest size is always Die foloende Seithe zei
     </section>
     <section class="page-entry" id="page-011">
       <div class="page-image-area">
-        <img src="./assets/pages/page_011.jpg" alt="第11页" loading="lazy">
+        <img src="./assets/pages_webp/page_011.webp" alt="第11页" loading="lazy">
         <div class="page-number">p.11</div>
       </div>
       <div class="page-text-area">
@@ -1033,7 +1188,7 @@ a...</div>
     </section>
     <section class="page-entry" id="page-012">
       <div class="page-image-area">
-        <img src="./assets/pages/page_012.jpg" alt="第12页" loading="lazy">
+        <img src="./assets/pages_webp/page_012.webp" alt="第12页" loading="lazy">
         <div class="page-number">p.12</div>
       </div>
       <div class="page-text-area">
@@ -1077,7 +1232,7 @@ Am...</div>
     </section>
     <section class="page-entry" id="page-013">
       <div class="page-image-area">
-        <img src="./assets/pages/page_013.jpg" alt="第13页" loading="lazy">
+        <img src="./assets/pages_webp/page_013.webp" alt="第13页" loading="lazy">
         <div class="page-number">p.13</div>
       </div>
       <div class="page-text-area">
@@ -1139,7 +1294,7 @@ graghic points, corresponds to Te pl. in size are cut in wood ar fds typogratisc
     </section>
     <section class="page-entry" id="page-014">
       <div class="page-image-area">
-        <img src="./assets/pages/page_014.jpg" alt="第14页" loading="lazy">
+        <img src="./assets/pages_webp/page_014.webp" alt="第14页" loading="lazy">
         <div class="page-number">p.14</div>
       </div>
       <div class="page-text-area">
@@ -1188,7 +1343,7 @@ easy reading, does-much to enhande lhe impressio...</div>
     </section>
     <section class="page-entry" id="page-015">
       <div class="page-image-area">
-        <img src="./assets/pages/page_015.jpg" alt="第15页" loading="lazy">
+        <img src="./assets/pages_webp/page_015.webp" alt="第15页" loading="lazy">
         <div class="page-number">p.15</div>
       </div>
       <div class="page-text-area">
@@ -1233,7 +1388,7 @@ i en | held its position until the 20th century. ihrer Form sein kennen und wie 
     </section>
     <section class="page-entry" id="page-016">
       <div class="page-image-area">
-        <img src="./assets/pages/page_016.jpg" alt="第16页" loading="lazy">
+        <img src="./assets/pages_webp/page_016.webp" alt="第16页" loading="lazy">
         <div class="page-number">p.16</div>
       </div>
       <div class="page-text-area">
@@ -1296,7 +1451,7 @@ yornesethen
     </section>
     <section class="page-entry" id="page-017">
       <div class="page-image-area">
-        <img src="./assets/pages/page_017.jpg" alt="第17页" loading="lazy">
+        <img src="./assets/pages_webp/page_017.webp" alt="第17页" loading="lazy">
         <div class="page-number">p.17</div>
       </div>
       <div class="page-text-area">
@@ -1361,7 +1516,7 @@ halbfett und kursiv erbaltlich,
     </section>
     <section class="page-entry" id="page-018">
       <div class="page-image-area">
-        <img src="./assets/pages/page_018.jpg" alt="第18页" loading="lazy">
+        <img src="./assets/pages_webp/page_018.webp" alt="第18页" loading="lazy">
         <div class="page-number">p.18</div>
       </div>
       <div class="page-text-area">
@@ -1410,7 +1565,7 @@ V —</div>
     </section>
     <section class="page-entry" id="page-019">
       <div class="page-image-area">
-        <img src="./assets/pages/page_019.jpg" alt="第19页" loading="lazy">
+        <img src="./assets/pages_webp/page_019.webp" alt="第19页" loading="lazy">
         <div class="page-number">p.19</div>
       </div>
       <div class="page-text-area">
@@ -1530,7 +1685,7 @@ rca =</div>
     </section>
     <section class="page-entry" id="page-020">
       <div class="page-image-area">
-        <img src="./assets/pages/page_020.jpg" alt="第20页" loading="lazy">
+        <img src="./assets/pages_webp/page_020.webp" alt="第20页" loading="lazy">
         <div class="page-number">p.20</div>
       </div>
       <div class="page-text-area">
@@ -1579,7 +1734,7 @@ Clarendon is notable far its originale Type, die Gaslon 1843</div>
     </section>
     <section class="page-entry" id="page-021">
       <div class="page-image-area">
-        <img src="./assets/pages/page_021.jpg" alt="第21页" loading="lazy">
+        <img src="./assets/pages_webp/page_021.webp" alt="第21页" loading="lazy">
         <div class="page-number">p.21</div>
       </div>
       <div class="page-text-area">
@@ -1661,7 +1816,7 @@ F a ———_—</div>
     </section>
     <section class="page-entry" id="page-022">
       <div class="page-image-area">
-        <img src="./assets/pages/page_022.jpg" alt="第22页" loading="lazy">
+        <img src="./assets/pages_webp/page_022.webp" alt="第22页" loading="lazy">
         <div class="page-number">p.22</div>
       </div>
       <div class="page-text-area">
@@ -1712,7 +1867,7 @@ then verdiant gemacht</div>
     </section>
     <section class="page-entry" id="page-023">
       <div class="page-image-area">
-        <img src="./assets/pages/page_023.jpg" alt="第23页" loading="lazy">
+        <img src="./assets/pages_webp/page_023.webp" alt="第23页" loading="lazy">
         <div class="page-number">p.23</div>
       </div>
       <div class="page-text-area">
@@ -1767,7 +1922,7 @@ rae Kurcer alg bol der Bartheld, wes</div>
     </section>
     <section class="page-entry" id="page-024">
       <div class="page-image-area">
-        <img src="./assets/pages/page_024.jpg" alt="第24页" loading="lazy">
+        <img src="./assets/pages_webp/page_024.webp" alt="第24页" loading="lazy">
         <div class="page-number">p.24</div>
       </div>
       <div class="page-text-area">
@@ -1814,7 +1969,7 @@ slam and tha bow! of the letther achen Slamm und Rundung des
     </section>
     <section class="page-entry" id="page-025">
       <div class="page-image-area">
-        <img src="./assets/pages/page_025.jpg" alt="第25页" loading="lazy">
+        <img src="./assets/pages_webp/page_025.webp" alt="第25页" loading="lazy">
         <div class="page-number">p.25</div>
       </div>
       <div class="page-text-area">
@@ -1857,7 +2012,7 @@ brought an additional problem: namely, that of the von Zeile zu Zeile, der Schri
     </section>
     <section class="page-entry" id="page-026">
       <div class="page-image-area">
-        <img src="./assets/pages/page_026.jpg" alt="第26页" loading="lazy">
+        <img src="./assets/pages_webp/page_026.webp" alt="第26页" loading="lazy">
         <div class="page-number">p.26</div>
       </div>
       <div class="page-text-area">
@@ -1907,7 +2062,7 @@ eqegan dashalb, weil solche Ark</div>
     </section>
     <section class="page-entry" id="page-027">
       <div class="page-image-area">
-        <img src="./assets/pages/page_027.jpg" alt="第27页" loading="lazy">
+        <img src="./assets/pages_webp/page_027.webp" alt="第27页" loading="lazy">
         <div class="page-number">p.27</div>
       </div>
       <div class="page-text-area">
@@ -2039,7 +2194,7 @@ gend grosse Zeilen-D...</div>
     </section>
     <section class="page-entry" id="page-028">
       <div class="page-image-area">
-        <img src="./assets/pages/page_028.jpg" alt="第28页" loading="lazy">
+        <img src="./assets/pages_webp/page_028.webp" alt="第28页" loading="lazy">
         <div class="page-number">p.28</div>
       </div>
       <div class="page-text-area">
@@ -2103,7 +2258,7 @@ can be placed on a page.</div>
     </section>
     <section class="page-entry" id="page-029">
       <div class="page-image-area">
-        <img src="./assets/pages/page_029.jpg" alt="第29页" loading="lazy">
+        <img src="./assets/pages_webp/page_029.webp" alt="第29页" loading="lazy">
         <div class="page-number">p.29</div>
       </div>
       <div class="page-text-area">
@@ -2163,7 +2318,7 @@ Sthempelschneider E. Thiele, Basel, eine streng und sachlich geformt
     </section>
     <section class="page-entry" id="page-030">
       <div class="page-image-area">
-        <img src="./assets/pages/page_030.jpg" alt="第30页" loading="lazy">
+        <img src="./assets/pages_webp/page_030.webp" alt="第30页" loading="lazy">
         <div class="page-number">p.30</div>
       </div>
       <div class="page-text-area">
@@ -2224,7 +2379,7 @@ und auch durch die fir die Ueberschrifthen und A</div>
     </section>
     <section class="page-entry" id="page-031">
       <div class="page-image-area">
-        <img src="./assets/pages/page_031.jpg" alt="第31页" loading="lazy">
+        <img src="./assets/pages_webp/page_031.webp" alt="第31页" loading="lazy">
         <div class="page-number">p.31</div>
       </div>
       <div class="page-text-area">
@@ -2287,7 +2442,7 @@ unchanded for centuries.</div>
     </section>
     <section class="page-entry" id="page-032">
       <div class="page-image-area">
-        <img src="./assets/pages/page_032.jpg" alt="第32页" loading="lazy">
+        <img src="./assets/pages_webp/page_032.webp" alt="第32页" loading="lazy">
         <div class="page-number">p.32</div>
       </div>
       <div class="page-text-area">
@@ -2396,7 +2551,7 @@ ee der Buchsei...</div>
     </section>
     <section class="page-entry" id="page-033">
       <div class="page-image-area">
-        <img src="./assets/pages/page_033.jpg" alt="第33页" loading="lazy">
+        <img src="./assets/pages_webp/page_033.webp" alt="第33页" loading="lazy">
         <div class="page-number">p.33</div>
       </div>
       <div class="page-text-area">
@@ -2461,7 +2616,7 @@ look more generous.</div>
     </section>
     <section class="page-entry" id="page-034">
       <div class="page-image-area">
-        <img src="./assets/pages/page_034.jpg" alt="第34页" loading="lazy">
+        <img src="./assets/pages_webp/page_034.webp" alt="第34页" loading="lazy">
         <div class="page-number">p.34</div>
       </div>
       <div class="page-text-area">
@@ -2577,7 +2732,7 @@ kiinstler hab...</div>
     </section>
     <section class="page-entry" id="page-035">
       <div class="page-image-area">
-        <img src="./assets/pages/page_035.jpg" alt="第35页" loading="lazy">
+        <img src="./assets/pages_webp/page_035.webp" alt="第35页" loading="lazy">
         <div class="page-number">p.35</div>
       </div>
       <div class="page-text-area">
@@ -2699,7 +2854,7 @@ Hier muss d...</div>
     </section>
     <section class="page-entry" id="page-036">
       <div class="page-image-area">
-        <img src="./assets/pages/page_036.jpg" alt="第36页" loading="lazy">
+        <img src="./assets/pages_webp/page_036.webp" alt="第36页" loading="lazy">
         <div class="page-number">p.36</div>
       </div>
       <div class="page-text-area">
@@ -2757,7 +2912,7 @@ to the space separating the columns of type.</div>
     </section>
     <section class="page-entry" id="page-037">
       <div class="page-image-area">
-        <img src="./assets/pages/page_037.jpg" alt="第37页" loading="lazy">
+        <img src="./assets/pages_webp/page_037.webp" alt="第37页" loading="lazy">
         <div class="page-number">p.37</div>
       </div>
       <div class="page-text-area">
@@ -2834,7 +2989,7 @@ Fig. 5 shows an uncommon POsi-</div>
     </section>
     <section class="page-entry" id="page-038">
       <div class="page-image-area">
-        <img src="./assets/pages/page_038.jpg" alt="第38页" loading="lazy">
+        <img src="./assets/pages_webp/page_038.webp" alt="第38页" loading="lazy">
         <div class="page-number">p.38</div>
       </div>
       <div class="page-text-area">
@@ -2928,7 +3083,7 @@ On &amp; page wilh 2 columns,</div>
     </section>
     <section class="page-entry" id="page-039">
       <div class="page-image-area">
-        <img src="./assets/pages/page_039.jpg" alt="第39页" loading="lazy">
+        <img src="./assets/pages_webp/page_039.webp" alt="第39页" loading="lazy">
         <div class="page-number">p.39</div>
       </div>
       <div class="page-text-area">
@@ -3005,7 +3160,7 @@ aem Texttheil hervorgehoben sind durch eine s...</div>
     </section>
     <section class="page-entry" id="page-040">
       <div class="page-image-area">
-        <img src="./assets/pages/page_040.jpg" alt="第40页" loading="lazy">
+        <img src="./assets/pages_webp/page_040.webp" alt="第40页" loading="lazy">
         <div class="page-number">p.40</div>
       </div>
       <div class="page-text-area">
@@ -3094,7 +3249,7 @@ den. die...</div>
     </section>
     <section class="page-entry" id="page-041">
       <div class="page-image-area">
-        <img src="./assets/pages/page_041.jpg" alt="第41页" loading="lazy">
+        <img src="./assets/pages_webp/page_041.webp" alt="第41页" loading="lazy">
         <div class="page-number">p.41</div>
       </div>
       <div class="page-text-area">
@@ -3141,7 +3296,7 @@ wenn man «im Geschoft bleiben will». Die aufgewende
     </section>
     <section class="page-entry" id="page-042">
       <div class="page-image-area">
-        <img src="./assets/pages/page_042.jpg" alt="第42页" loading="lazy">
+        <img src="./assets/pages_webp/page_042.webp" alt="第42页" loading="lazy">
         <div class="page-number">p.42</div>
       </div>
       <div class="page-text-area">
@@ -3208,7 +3363,7 @@ whole lo...</div>
     </section>
     <section class="page-entry" id="page-043">
       <div class="page-image-area">
-        <img src="./assets/pages/page_043.jpg" alt="第43页" loading="lazy">
+        <img src="./assets/pages_webp/page_043.webp" alt="第43页" loading="lazy">
         <div class="page-number">p.43</div>
       </div>
       <div class="page-text-area">
@@ -3282,7 +3437,7 @@ Die folgenden Beispiela illustrie...</div>
     </section>
     <section class="page-entry" id="page-044">
       <div class="page-image-area">
-        <img src="./assets/pages/page_044.jpg" alt="第44页" loading="lazy">
+        <img src="./assets/pages_webp/page_044.webp" alt="第44页" loading="lazy">
         <div class="page-number">p.44</div>
       </div>
       <div class="page-text-area">
@@ -3359,7 +3514,7 @@ the Golden Section.</div>
     </section>
     <section class="page-entry" id="page-045">
       <div class="page-image-area">
-        <img src="./assets/pages/page_045.jpg" alt="第45页" loading="lazy">
+        <img src="./assets/pages_webp/page_045.webp" alt="第45页" loading="lazy">
         <div class="page-number">p.45</div>
       </div>
       <div class="page-text-area">
@@ -3489,7 +3644,7 @@ Setzl.</div>
     </section>
     <section class="page-entry" id="page-046">
       <div class="page-image-area">
-        <img src="./assets/pages/page_046.jpg" alt="第46页" loading="lazy">
+        <img src="./assets/pages_webp/page_046.webp" alt="第46页" loading="lazy">
         <div class="page-number">p.46</div>
       </div>
       <div class="page-text-area">
@@ -3553,7 +3708,7 @@ Le</div>
     </section>
     <section class="page-entry" id="page-047">
       <div class="page-image-area">
-        <img src="./assets/pages/page_047.jpg" alt="第47页" loading="lazy">
+        <img src="./assets/pages_webp/page_047.webp" alt="第47页" loading="lazy">
         <div class="page-number">p.47</div>
       </div>
       <div class="page-text-area">
@@ -3673,7 +3828,7 @@ D.h, die breitheren Sp...</div>
     </section>
     <section class="page-entry" id="page-048">
       <div class="page-image-area">
-        <img src="./assets/pages/page_048.jpg" alt="第48页" loading="lazy">
+        <img src="./assets/pages_webp/page_048.webp" alt="第48页" loading="lazy">
         <div class="page-number">p.48</div>
       </div>
       <div class="page-text-area">
@@ -3748,7 +3903,7 @@ solutions that they cannot</div>
     </section>
     <section class="page-entry" id="page-049">
       <div class="page-image-area">
-        <img src="./assets/pages/page_049.jpg" alt="第49页" loading="lazy">
+        <img src="./assets/pages_webp/page_049.webp" alt="第49页" loading="lazy">
         <div class="page-number">p.49</div>
       </div>
       <div class="page-text-area">
@@ -3793,7 +3948,7 @@ Soalthen</div>
     </section>
     <section class="page-entry" id="page-050">
       <div class="page-image-area">
-        <img src="./assets/pages/page_050.jpg" alt="第50页" loading="lazy">
+        <img src="./assets/pages_webp/page_050.webp" alt="第50页" loading="lazy">
         <div class="page-number">p.50</div>
       </div>
       <div class="page-text-area">
@@ -3874,7 +4029,7 @@ a...</div>
     </section>
     <section class="page-entry" id="page-051">
       <div class="page-image-area">
-        <img src="./assets/pages/page_051.jpg" alt="第51页" loading="lazy">
+        <img src="./assets/pages_webp/page_051.webp" alt="第51页" loading="lazy">
         <div class="page-number">p.51</div>
       </div>
       <div class="page-text-area">
@@ -3942,7 +4097,7 @@ between the grid ...</div>
     </section>
     <section class="page-entry" id="page-052">
       <div class="page-image-area">
-        <img src="./assets/pages/page_052.jpg" alt="第52页" loading="lazy">
+        <img src="./assets/pages_webp/page_052.webp" alt="第52页" loading="lazy">
         <div class="page-number">p.52</div>
       </div>
       <div class="page-text-area">
@@ -4015,7 +4170,7 @@ taken for the titles, the 20 lines of 10 points with a
     </section>
     <section class="page-entry" id="page-053">
       <div class="page-image-area">
-        <img src="./assets/pages/page_053.jpg" alt="第53页" loading="lazy">
+        <img src="./assets/pages_webp/page_053.webp" alt="第53页" loading="lazy">
         <div class="page-number">p.53</div>
       </div>
       <div class="page-text-area">
@@ -4063,7 +4218,7 @@ publication may ultimathely depend upon it.</div>
     </section>
     <section class="page-entry" id="page-054">
       <div class="page-image-area">
-        <img src="./assets/pages/page_054.jpg" alt="第54页" loading="lazy">
+        <img src="./assets/pages_webp/page_054.webp" alt="第54页" loading="lazy">
         <div class="page-number">p.54</div>
       </div>
       <div class="page-text-area">
@@ -4148,7 +4303,7 @@ number of thext lines, He will</div>
     </section>
     <section class="page-entry" id="page-055">
       <div class="page-image-area">
-        <img src="./assets/pages/page_055.jpg" alt="第55页" loading="lazy">
+        <img src="./assets/pages_webp/page_055.webp" alt="第55页" loading="lazy">
         <div class="page-number">p.55</div>
       </div>
       <div class="page-text-area">
@@ -4308,7 +4463,7 @@ lower faunding lines at the grid
     </section>
     <section class="page-entry" id="page-056">
       <div class="page-image-area">
-        <img src="./assets/pages/page_056.jpg" alt="第56页" loading="lazy">
+        <img src="./assets/pages_webp/page_056.webp" alt="第56页" loading="lazy">
         <div class="page-number">p.56</div>
       </div>
       <div class="page-text-area">
@@ -4392,7 +4547,7 @@ dg Fackber: der unbesdngt reeweradcen ...</div>
     </section>
     <section class="page-entry" id="page-057">
       <div class="page-image-area">
-        <img src="./assets/pages/page_057.jpg" alt="第57页" loading="lazy">
+        <img src="./assets/pages_webp/page_057.webp" alt="第57页" loading="lazy">
         <div class="page-number">p.57</div>
       </div>
       <div class="page-text-area">
@@ -4474,7 +4629,7 @@ ithes th Pet a...</div>
     </section>
     <section class="page-entry" id="page-058">
       <div class="page-image-area">
-        <img src="./assets/pages/page_058.jpg" alt="第58页" loading="lazy">
+        <img src="./assets/pages_webp/page_058.webp" alt="第58页" loading="lazy">
         <div class="page-number">p.58</div>
       </div>
       <div class="page-text-area">
@@ -4638,7 +4793,7 @@ Riasier mi...</div>
     </section>
     <section class="page-entry" id="page-059">
       <div class="page-image-area">
-        <img src="./assets/pages/page_059.jpg" alt="第59页" loading="lazy">
+        <img src="./assets/pages_webp/page_059.webp" alt="第59页" loading="lazy">
         <div class="page-number">p.59</div>
       </div>
       <div class="page-text-area">
@@ -4740,7 +4895,7 @@ Of eee ach orrgeschelsi ghaelepes...</div>
     </section>
     <section class="page-entry" id="page-060">
       <div class="page-image-area">
-        <img src="./assets/pages/page_060.jpg" alt="第60页" loading="lazy">
+        <img src="./assets/pages_webp/page_060.webp" alt="第60页" loading="lazy">
         <div class="page-number">p.60</div>
       </div>
       <div class="page-text-area">
@@ -4771,7 +4926,7 @@ Rastherlelder gleicher Grosse</div>
     </section>
     <section class="page-entry" id="page-061">
       <div class="page-image-area">
-        <img src="./assets/pages/page_061.jpg" alt="第61页" loading="lazy">
+        <img src="./assets/pages_webp/page_061.webp" alt="第61页" loading="lazy">
         <div class="page-number">p.61</div>
       </div>
       <div class="page-text-area">
@@ -4825,7 +4980,7 @@ fr rea pera a ured Melba he pepe bey Ferra. arayecrs remy Pathog el, eo th...</d
     </section>
     <section class="page-entry" id="page-062">
       <div class="page-image-area">
-        <img src="./assets/pages/page_062.jpg" alt="第62页" loading="lazy">
+        <img src="./assets/pages_webp/page_062.webp" alt="第62页" loading="lazy">
         <div class="page-number">p.62</div>
       </div>
       <div class="page-text-area">
@@ -4936,7 +5091,7 @@ esis thers is Caer e Wl Gd Li d...</div>
     </section>
     <section class="page-entry" id="page-063">
       <div class="page-image-area">
-        <img src="./assets/pages/page_063.jpg" alt="第63页" loading="lazy">
+        <img src="./assets/pages_webp/page_063.webp" alt="第63页" loading="lazy">
         <div class="page-number">p.63</div>
       </div>
       <div class="page-text-area">
@@ -5034,7 +5189,7 @@ informative.</div>
     </section>
     <section class="page-entry" id="page-064">
       <div class="page-image-area">
-        <img src="./assets/pages/page_064.jpg" alt="第64页" loading="lazy">
+        <img src="./assets/pages_webp/page_064.webp" alt="第64页" loading="lazy">
         <div class="page-number">p.64</div>
       </div>
       <div class="page-text-area">
@@ -5086,7 +5241,7 @@ designer a wide rande of possibilities.</div>
     </section>
     <section class="page-entry" id="page-065">
       <div class="page-image-area">
-        <img src="./assets/pages/page_065.jpg" alt="第65页" loading="lazy">
+        <img src="./assets/pages_webp/page_065.webp" alt="第65页" loading="lazy">
         <div class="page-number">p.65</div>
       </div>
       <div class="page-text-area">
@@ -5108,7 +5263,7 @@ designer a wide rande of possibilities.</div>
     </section>
     <section class="page-entry" id="page-066">
       <div class="page-image-area">
-        <img src="./assets/pages/page_066.jpg" alt="第66页" loading="lazy">
+        <img src="./assets/pages_webp/page_066.webp" alt="第66页" loading="lazy">
         <div class="page-number">p.66</div>
       </div>
       <div class="page-text-area">
@@ -5168,7 +5323,7 @@ zogen sein, Damgegentiber stheh...</div>
     </section>
     <section class="page-entry" id="page-067">
       <div class="page-image-area">
-        <img src="./assets/pages/page_067.jpg" alt="第67页" loading="lazy">
+        <img src="./assets/pages_webp/page_067.webp" alt="第67页" loading="lazy">
         <div class="page-number">p.67</div>
       </div>
       <div class="page-text-area">
@@ -5264,7 +5419,7 @@ ruhige Wirkung antsthehen kann,</div>
     </section>
     <section class="page-entry" id="page-068">
       <div class="page-image-area">
-        <img src="./assets/pages/page_068.jpg" alt="第68页" loading="lazy">
+        <img src="./assets/pages_webp/page_068.webp" alt="第68页" loading="lazy">
         <div class="page-number">p.68</div>
       </div>
       <div class="page-text-area">
@@ -5342,7 +5497,7 @@ designer will avald unelear</div>
     </section>
     <section class="page-entry" id="page-069">
       <div class="page-image-area">
-        <img src="./assets/pages/page_069.jpg" alt="第69页" loading="lazy">
+        <img src="./assets/pages_webp/page_069.webp" alt="第69页" loading="lazy">
         <div class="page-number">p.69</div>
       </div>
       <div class="page-text-area">
@@ -5372,7 +5527,7 @@ OL oS g 1 8</div>
     </section>
     <section class="page-entry" id="page-070">
       <div class="page-image-area">
-        <img src="./assets/pages/page_070.jpg" alt="第70页" loading="lazy">
+        <img src="./assets/pages_webp/page_070.webp" alt="第70页" loading="lazy">
         <div class="page-number">p.70</div>
       </div>
       <div class="page-text-area">
@@ -5493,7 +5648,7 @@ Ugnisse (hire Eni...</div>
     </section>
     <section class="page-entry" id="page-071">
       <div class="page-image-area">
-        <img src="./assets/pages/page_071.jpg" alt="第71页" loading="lazy">
+        <img src="./assets/pages_webp/page_071.webp" alt="第71页" loading="lazy">
         <div class="page-number">p.71</div>
       </div>
       <div class="page-text-area">
@@ -5596,7 +5751,7 @@ Designer d...</div>
     </section>
     <section class="page-entry" id="page-072">
       <div class="page-image-area">
-        <img src="./assets/pages/page_072.jpg" alt="第72页" loading="lazy">
+        <img src="./assets/pages_webp/page_072.webp" alt="第72页" loading="lazy">
         <div class="page-number">p.72</div>
       </div>
       <div class="page-text-area">
@@ -5697,7 +5852,7 @@ press. (C...</div>
     </section>
     <section class="page-entry" id="page-073">
       <div class="page-image-area">
-        <img src="./assets/pages/page_073.jpg" alt="第73页" loading="lazy">
+        <img src="./assets/pages_webp/page_073.webp" alt="第73页" loading="lazy">
         <div class="page-number">p.73</div>
       </div>
       <div class="page-text-area">
@@ -5805,7 +5960,7 @@ geschoffenen Gildern gestalther</div>
     </section>
     <section class="page-entry" id="page-074">
       <div class="page-image-area">
-        <img src="./assets/pages/page_074.jpg" alt="第74页" loading="lazy">
+        <img src="./assets/pages_webp/page_074.webp" alt="第74页" loading="lazy">
         <div class="page-number">p.74</div>
       </div>
       <div class="page-text-area">
@@ -5868,7 +6023,7 @@ Sx porimenting</div>
     </section>
     <section class="page-entry" id="page-075">
       <div class="page-image-area">
-        <img src="./assets/pages/page_075.jpg" alt="第75页" loading="lazy">
+        <img src="./assets/pages_webp/page_075.webp" alt="第75页" loading="lazy">
         <div class="page-number">p.75</div>
       </div>
       <div class="page-text-area">
@@ -5956,7 +6111,7 @@ his profession,</div>
     </section>
     <section class="page-entry" id="page-076">
       <div class="page-image-area">
-        <img src="./assets/pages/page_076.jpg" alt="第76页" loading="lazy">
+        <img src="./assets/pages_webp/page_076.webp" alt="第76页" loading="lazy">
         <div class="page-number">p.76</div>
       </div>
       <div class="page-text-area">
@@ -5981,7 +6136,7 @@ pictures OF 4 dillerent sizes</div>
     </section>
     <section class="page-entry" id="page-077">
       <div class="page-image-area">
-        <img src="./assets/pages/page_077.jpg" alt="第77页" loading="lazy">
+        <img src="./assets/pages_webp/page_077.webp" alt="第77页" loading="lazy">
         <div class="page-number">p.77</div>
       </div>
       <div class="page-text-area">
@@ -6100,7 +6255,7 @@ lor his lalents.</div>
     </section>
     <section class="page-entry" id="page-078">
       <div class="page-image-area">
-        <img src="./assets/pages/page_078.jpg" alt="第78页" loading="lazy">
+        <img src="./assets/pages_webp/page_078.webp" alt="第78页" loading="lazy">
         <div class="page-number">p.78</div>
       </div>
       <div class="page-text-area">
@@ -6174,7 +6329,7 @@ creative activity.</div>
     </section>
     <section class="page-entry" id="page-079">
       <div class="page-image-area">
-        <img src="./assets/pages/page_079.jpg" alt="第79页" loading="lazy">
+        <img src="./assets/pages_webp/page_079.webp" alt="第79页" loading="lazy">
         <div class="page-number">p.79</div>
       </div>
       <div class="page-text-area">
@@ -6254,7 +6409,7 @@ enormaus...</div>
     </section>
     <section class="page-entry" id="page-080">
       <div class="page-image-area">
-        <img src="./assets/pages/page_080.jpg" alt="第80页" loading="lazy">
+        <img src="./assets/pages_webp/page_080.webp" alt="第80页" loading="lazy">
         <div class="page-number">p.80</div>
       </div>
       <div class="page-text-area">
@@ -6276,7 +6431,7 @@ enormaus...</div>
     </section>
     <section class="page-entry" id="page-081">
       <div class="page-image-area">
-        <img src="./assets/pages/page_081.jpg" alt="第81页" loading="lazy">
+        <img src="./assets/pages_webp/page_081.webp" alt="第81页" loading="lazy">
         <div class="page-number">p.81</div>
       </div>
       <div class="page-text-area">
@@ -6401,7 +6556,7 @@ Druckerzeugnissen, bei danen das rei...</div>
     </section>
     <section class="page-entry" id="page-082">
       <div class="page-image-area">
-        <img src="./assets/pages/page_082.jpg" alt="第82页" loading="lazy">
+        <img src="./assets/pages_webp/page_082.webp" alt="第82页" loading="lazy">
         <div class="page-number">p.82</div>
       </div>
       <div class="page-text-area">
@@ -6511,7 +6666,7 @@ die sehr breit isi, andann s...</div>
     </section>
     <section class="page-entry" id="page-083">
       <div class="page-image-area">
-        <img src="./assets/pages/page_083.jpg" alt="第83页" loading="lazy">
+        <img src="./assets/pages_webp/page_083.webp" alt="第83页" loading="lazy">
         <div class="page-number">p.83</div>
       </div>
       <div class="page-text-area">
@@ -6634,7 +6789,7 @@ durchschu...</div>
     </section>
     <section class="page-entry" id="page-084">
       <div class="page-image-area">
-        <img src="./assets/pages/page_084.jpg" alt="第84页" loading="lazy">
+        <img src="./assets/pages_webp/page_084.webp" alt="第84页" loading="lazy">
         <div class="page-number">p.84</div>
       </div>
       <div class="page-text-area">
@@ -6707,7 +6862,7 @@ sizes. A, design can be powerlul</div>
     </section>
     <section class="page-entry" id="page-085">
       <div class="page-image-area">
-        <img src="./assets/pages/page_085.jpg" alt="第85页" loading="lazy">
+        <img src="./assets/pages_webp/page_085.webp" alt="第85页" loading="lazy">
         <div class="page-number">p.85</div>
       </div>
       <div class="page-text-area">
@@ -6803,7 +6958,7 @@ a few mm larger than the print.</div>
     </section>
     <section class="page-entry" id="page-086">
       <div class="page-image-area">
-        <img src="./assets/pages/page_086.jpg" alt="第86页" loading="lazy">
+        <img src="./assets/pages_webp/page_086.webp" alt="第86页" loading="lazy">
         <div class="page-number">p.86</div>
       </div>
       <div class="page-text-area">
@@ -6899,7 +7054,7 @@ Es gibi Designer, dic es varsthehen</div>
     </section>
     <section class="page-entry" id="page-087">
       <div class="page-image-area">
-        <img src="./assets/pages/page_087.jpg" alt="第87页" loading="lazy">
+        <img src="./assets/pages_webp/page_087.webp" alt="第87页" loading="lazy">
         <div class="page-number">p.87</div>
       </div>
       <div class="page-text-area">
@@ -6946,7 +7101,7 @@ effect rewards the effort invalved,</div>
     </section>
     <section class="page-entry" id="page-088">
       <div class="page-image-area">
-        <img src="./assets/pages/page_088.jpg" alt="第88页" loading="lazy">
+        <img src="./assets/pages_webp/page_088.webp" alt="第88页" loading="lazy">
         <div class="page-number">p.88</div>
       </div>
       <div class="page-text-area">
@@ -7010,7 +7165,7 @@ next best solution,</div>
     </section>
     <section class="page-entry" id="page-089">
       <div class="page-image-area">
-        <img src="./assets/pages/page_089.jpg" alt="第89页" loading="lazy">
+        <img src="./assets/pages_webp/page_089.webp" alt="第89页" loading="lazy">
         <div class="page-number">p.89</div>
       </div>
       <div class="page-text-area">
@@ -7053,7 +7208,7 @@ possible.</div>
     </section>
     <section class="page-entry" id="page-090">
       <div class="page-image-area">
-        <img src="./assets/pages/page_090.jpg" alt="第90页" loading="lazy">
+        <img src="./assets/pages_webp/page_090.webp" alt="第90页" loading="lazy">
         <div class="page-number">p.90</div>
       </div>
       <div class="page-text-area">
@@ -7176,7 +7331,7 @@ WHICH draws the line ...</div>
     </section>
     <section class="page-entry" id="page-091">
       <div class="page-image-area">
-        <img src="./assets/pages/page_091.jpg" alt="第91页" loading="lazy">
+        <img src="./assets/pages_webp/page_091.webp" alt="第91页" loading="lazy">
         <div class="page-number">p.91</div>
       </div>
       <div class="page-text-area">
@@ -7227,7 +7382,7 @@ lines of thext.</div>
     </section>
     <section class="page-entry" id="page-092">
       <div class="page-image-area">
-        <img src="./assets/pages/page_092.jpg" alt="第92页" loading="lazy">
+        <img src="./assets/pages_webp/page_092.webp" alt="第92页" loading="lazy">
         <div class="page-number">p.92</div>
       </div>
       <div class="page-text-area">
@@ -7327,7 +7482,7 @@ ype.</div>
     </section>
     <section class="page-entry" id="page-093">
       <div class="page-image-area">
-        <img src="./assets/pages/page_093.jpg" alt="第93页" loading="lazy">
+        <img src="./assets/pages_webp/page_093.webp" alt="第93页" loading="lazy">
         <div class="page-number">p.93</div>
       </div>
       <div class="page-text-area">
@@ -7404,7 +7559,7 @@ the colour can be applied with
     </section>
     <section class="page-entry" id="page-094">
       <div class="page-image-area">
-        <img src="./assets/pages/page_094.jpg" alt="第94页" loading="lazy">
+        <img src="./assets/pages_webp/page_094.webp" alt="第94页" loading="lazy">
         <div class="page-number">p.94</div>
       </div>
       <div class="page-text-area">
@@ -7453,7 +7608,7 @@ contrary.</div>
     </section>
     <section class="page-entry" id="page-095">
       <div class="page-image-area">
-        <img src="./assets/pages/page_095.jpg" alt="第95页" loading="lazy">
+        <img src="./assets/pages_webp/page_095.webp" alt="第95页" loading="lazy">
         <div class="page-number">p.95</div>
       </div>
       <div class="page-text-area">
@@ -7531,7 +7686,7 @@ Umland: 186 Seithen,</div>
     </section>
     <section class="page-entry" id="page-096">
       <div class="page-image-area">
-        <img src="./assets/pages/page_096.jpg" alt="第96页" loading="lazy">
+        <img src="./assets/pages_webp/page_096.webp" alt="第96页" loading="lazy">
         <div class="page-number">p.96</div>
       </div>
       <div class="page-text-area">
@@ -7606,7 +7761,7 @@ which the pictures are organized.</div>
     </section>
     <section class="page-entry" id="page-097">
       <div class="page-image-area">
-        <img src="./assets/pages/page_097.jpg" alt="第97页" loading="lazy">
+        <img src="./assets/pages_webp/page_097.webp" alt="第97页" loading="lazy">
         <div class="page-number">p.97</div>
       </div>
       <div class="page-text-area">
@@ -7701,7 +7856,7 @@ Urriland: 150 Seithen,</div>
     </section>
     <section class="page-entry" id="page-098">
       <div class="page-image-area">
-        <img src="./assets/pages/page_098.jpg" alt="第98页" loading="lazy">
+        <img src="./assets/pages_webp/page_098.webp" alt="第98页" loading="lazy">
         <div class="page-number">p.98</div>
       </div>
       <div class="page-text-area">
@@ -7798,7 +7953,7 @@ Umfand: 200 Seithen.</div>
     </section>
     <section class="page-entry" id="page-099">
       <div class="page-image-area">
-        <img src="./assets/pages/page_099.jpg" alt="第99页" loading="lazy">
+        <img src="./assets/pages_webp/page_099.webp" alt="第99页" loading="lazy">
         <div class="page-number">p.99</div>
       </div>
       <div class="page-text-area">
@@ -7859,7 +8014,7 @@ Ter nile</div>
     </section>
     <section class="page-entry" id="page-100">
       <div class="page-image-area">
-        <img src="./assets/pages/page_100.jpg" alt="第100页" loading="lazy">
+        <img src="./assets/pages_webp/page_100.webp" alt="第100页" loading="lazy">
         <div class="page-number">p.100</div>
       </div>
       <div class="page-text-area">
@@ -7959,7 +8114,7 @@ Sa
     </section>
     <section class="page-entry" id="page-101">
       <div class="page-image-area">
-        <img src="./assets/pages/page_101.jpg" alt="第101页" loading="lazy">
+        <img src="./assets/pages_webp/page_101.webp" alt="第101页" loading="lazy">
         <div class="page-number">p.101</div>
       </div>
       <div class="page-text-area">
@@ -8071,7 +8226,7 @@ format,
     </section>
     <section class="page-entry" id="page-102">
       <div class="page-image-area">
-        <img src="./assets/pages/page_102.jpg" alt="第102页" loading="lazy">
+        <img src="./assets/pages_webp/page_102.webp" alt="第102页" loading="lazy">
         <div class="page-number">p.102</div>
       </div>
       <div class="page-text-area">
@@ -8131,7 +8286,7 @@ Number tf pages: 120</div>
     </section>
     <section class="page-entry" id="page-103">
       <div class="page-image-area">
-        <img src="./assets/pages/page_103.jpg" alt="第103页" loading="lazy">
+        <img src="./assets/pages_webp/page_103.webp" alt="第103页" loading="lazy">
         <div class="page-number">p.103</div>
       </div>
       <div class="page-text-area">
@@ -8203,7 +8358,7 @@ Niimber of pages: 122</div>
     </section>
     <section class="page-entry" id="page-104">
       <div class="page-image-area">
-        <img src="./assets/pages/page_104.jpg" alt="第104页" loading="lazy">
+        <img src="./assets/pages_webp/page_104.webp" alt="第104页" loading="lazy">
         <div class="page-number">p.104</div>
       </div>
       <div class="page-text-area">
@@ -8287,7 +8442,7 @@ Humber of pages: 382</div>
     </section>
     <section class="page-entry" id="page-105">
       <div class="page-image-area">
-        <img src="./assets/pages/page_105.jpg" alt="第105页" loading="lazy">
+        <img src="./assets/pages_webp/page_105.webp" alt="第105页" loading="lazy">
         <div class="page-number">p.105</div>
       </div>
       <div class="page-text-area">
@@ -8351,7 +8506,7 @@ Number of pages: a4</div>
     </section>
     <section class="page-entry" id="page-106">
       <div class="page-image-area">
-        <img src="./assets/pages/page_106.jpg" alt="第106页" loading="lazy">
+        <img src="./assets/pages_webp/page_106.webp" alt="第106页" loading="lazy">
         <div class="page-number">p.106</div>
       </div>
       <div class="page-text-area">
@@ -8433,7 +8588,7 @@ rn</div>
     </section>
     <section class="page-entry" id="page-107">
       <div class="page-image-area">
-        <img src="./assets/pages/page_107.jpg" alt="第107页" loading="lazy">
+        <img src="./assets/pages_webp/page_107.webp" alt="第107页" loading="lazy">
         <div class="page-number">p.107</div>
       </div>
       <div class="page-text-area">
@@ -8551,7 +8706,7 @@ together,</div>
     </section>
     <section class="page-entry" id="page-108">
       <div class="page-image-area">
-        <img src="./assets/pages/page_108.jpg" alt="第108页" loading="lazy">
+        <img src="./assets/pages_webp/page_108.webp" alt="第108页" loading="lazy">
         <div class="page-number">p.108</div>
       </div>
       <div class="page-text-area">
@@ -8594,7 +8749,7 @@ Number of pages: a</div>
     </section>
     <section class="page-entry" id="page-109">
       <div class="page-image-area">
-        <img src="./assets/pages/page_109.jpg" alt="第109页" loading="lazy">
+        <img src="./assets/pages_webp/page_109.webp" alt="第109页" loading="lazy">
         <div class="page-number">p.109</div>
       </div>
       <div class="page-text-area">
@@ -8661,7 +8816,7 @@ _ Number of pages: 70 Uimfand: 70 Seithen.</div>
     </section>
     <section class="page-entry" id="page-110">
       <div class="page-image-area">
-        <img src="./assets/pages/page_110.jpg" alt="第110页" loading="lazy">
+        <img src="./assets/pages_webp/page_110.webp" alt="第110页" loading="lazy">
         <div class="page-number">p.110</div>
       </div>
       <div class="page-text-area">
@@ -8723,7 +8878,7 @@ The fields are accommodathed in thergebracht, wobei zwei Spalthen
     </section>
     <section class="page-entry" id="page-111">
       <div class="page-image-area">
-        <img src="./assets/pages/page_111.jpg" alt="第111页" loading="lazy">
+        <img src="./assets/pages_webp/page_111.webp" alt="第111页" loading="lazy">
         <div class="page-number">p.111</div>
       </div>
       <div class="page-text-area">
@@ -8790,7 +8945,7 @@ on the same systhem. While the ...</div>
     </section>
     <section class="page-entry" id="page-112">
       <div class="page-image-area">
-        <img src="./assets/pages/page_112.jpg" alt="第112页" loading="lazy">
+        <img src="./assets/pages_webp/page_112.webp" alt="第112页" loading="lazy">
         <div class="page-number">p.112</div>
       </div>
       <div class="page-text-area">
@@ -8850,7 +9005,7 @@ Number of pages: 53 Uinifand: 52 Seithen.</div>
     </section>
     <section class="page-entry" id="page-113">
       <div class="page-image-area">
-        <img src="./assets/pages/page_113.jpg" alt="第113页" loading="lazy">
+        <img src="./assets/pages_webp/page_113.webp" alt="第113页" loading="lazy">
         <div class="page-number">p.113</div>
       </div>
       <div class="page-text-area">
@@ -8927,7 +9082,7 @@ N...</div>
     </section>
     <section class="page-entry" id="page-114">
       <div class="page-image-area">
-        <img src="./assets/pages/page_114.jpg" alt="第114页" loading="lazy">
+        <img src="./assets/pages_webp/page_114.webp" alt="第114页" loading="lazy">
         <div class="page-number">p.114</div>
       </div>
       <div class="page-text-area">
@@ -8992,7 +9147,7 @@ The same lype size 13 used for The lealelis printhe...</div>
     </section>
     <section class="page-entry" id="page-115">
       <div class="page-image-area">
-        <img src="./assets/pages/page_115.jpg" alt="第115页" loading="lazy">
+        <img src="./assets/pages_webp/page_115.webp" alt="第115页" loading="lazy">
         <div class="page-number">p.115</div>
       </div>
       <div class="page-text-area">
@@ -9050,7 +9205,7 @@ two type sizes. The pictures are verbindlich ist (mit Ausnahme</div>
     </section>
     <section class="page-entry" id="page-116">
       <div class="page-image-area">
-        <img src="./assets/pages/page_116.jpg" alt="第116页" loading="lazy">
+        <img src="./assets/pages_webp/page_116.webp" alt="第116页" loading="lazy">
         <div class="page-number">p.116</div>
       </div>
       <div class="page-text-area">
@@ -9103,7 +9258,7 @@ a K Ae Sorevies. Napa. Patina’ an sel ih/...</div>
     </section>
     <section class="page-entry" id="page-117">
       <div class="page-image-area">
-        <img src="./assets/pages/page_117.jpg" alt="第117页" loading="lazy">
+        <img src="./assets/pages_webp/page_117.webp" alt="第117页" loading="lazy">
         <div class="page-number">p.117</div>
       </div>
       <div class="page-text-area">
@@ -9176,7 +9331,7 @@ Humber of pages: az Umfand: &amp;2 Seithen,
     </section>
     <section class="page-entry" id="page-118">
       <div class="page-image-area">
-        <img src="./assets/pages/page_118.jpg" alt="第118页" loading="lazy">
+        <img src="./assets/pages_webp/page_118.webp" alt="第118页" loading="lazy">
         <div class="page-number">p.118</div>
       </div>
       <div class="page-text-area">
@@ -9261,7 +9416,7 @@ exposure photograph of the arm Kurzfo...</div>
     </section>
     <section class="page-entry" id="page-119">
       <div class="page-image-area">
-        <img src="./assets/pages/page_119.jpg" alt="第119页" loading="lazy">
+        <img src="./assets/pages_webp/page_119.webp" alt="第119页" loading="lazy">
         <div class="page-number">p.119</div>
       </div>
       <div class="page-text-area">
@@ -9332,7 +9487,7 @@ the thexts are more dilieull the Auf der anderen Seithe wird d...</div>
     </section>
     <section class="page-entry" id="page-120">
       <div class="page-image-area">
-        <img src="./assets/pages/page_120.jpg" alt="第120页" loading="lazy">
+        <img src="./assets/pages_webp/page_120.webp" alt="第120页" loading="lazy">
         <div class="page-number">p.120</div>
       </div>
       <div class="page-text-area">
@@ -9403,7 +9558,7 @@ naie with (hase of diminutive neglect clarity and logicality of mit Klainsthen B
     </section>
     <section class="page-entry" id="page-121">
       <div class="page-image-area">
-        <img src="./assets/pages/page_121.jpg" alt="第121页" loading="lazy">
+        <img src="./assets/pages_webp/page_121.webp" alt="第121页" loading="lazy">
         <div class="page-number">p.121</div>
       </div>
       <div class="page-text-area">
@@ -9478,7 +9633,7 @@ Das P...</div>
     </section>
     <section class="page-entry" id="page-122">
       <div class="page-image-area">
-        <img src="./assets/pages/page_122.jpg" alt="第122页" loading="lazy">
+        <img src="./assets/pages_webp/page_122.webp" alt="第122页" loading="lazy">
         <div class="page-number">p.122</div>
       </div>
       <div class="page-text-area">
@@ -9523,7 +9678,7 @@ should always creathe a...</div>
     </section>
     <section class="page-entry" id="page-123">
       <div class="page-image-area">
-        <img src="./assets/pages/page_123.jpg" alt="第123页" loading="lazy">
+        <img src="./assets/pages_webp/page_123.webp" alt="第123页" loading="lazy">
         <div class="page-number">p.123</div>
       </div>
       <div class="page-text-area">
@@ -9595,7 +9750,7 @@ m...</div>
     </section>
     <section class="page-entry" id="page-124">
       <div class="page-image-area">
-        <img src="./assets/pages/page_124.jpg" alt="第124页" loading="lazy">
+        <img src="./assets/pages_webp/page_124.webp" alt="第124页" loading="lazy">
         <div class="page-number">p.124</div>
       </div>
       <div class="page-text-area">
@@ -9645,7 +9800,7 @@ N diesen...</div>
     </section>
     <section class="page-entry" id="page-125">
       <div class="page-image-area">
-        <img src="./assets/pages/page_125.jpg" alt="第125页" loading="lazy">
+        <img src="./assets/pages_webp/page_125.webp" alt="第125页" loading="lazy">
         <div class="page-number">p.125</div>
       </div>
       <div class="page-text-area">
@@ -9723,7 +9878,7 @@ their corporathe image in therms though! must be given to uni- Erscheinungsbild 
     </section>
     <section class="page-entry" id="page-126">
       <div class="page-image-area">
-        <img src="./assets/pages/page_126.jpg" alt="第126页" loading="lazy">
+        <img src="./assets/pages_webp/page_126.webp" alt="第126页" loading="lazy">
         <div class="page-number">p.126</div>
       </div>
       <div class="page-text-area">
@@ -9801,7 +9956,7 @@ are, like the inside pages, design- oan the lallawing gages. epekie sind, anatog
     </section>
     <section class="page-entry" id="page-127">
       <div class="page-image-area">
-        <img src="./assets/pages/page_127.jpg" alt="第127页" loading="lazy">
+        <img src="./assets/pages_webp/page_127.webp" alt="第127页" loading="lazy">
         <div class="page-number">p.127</div>
       </div>
       <div class="page-text-area">
@@ -9877,7 +10032,7 @@ preceding examples, llustratiqns end colour scheme. inden v...</div>
     </section>
     <section class="page-entry" id="page-128">
       <div class="page-image-area">
-        <img src="./assets/pages/page_128.jpg" alt="第128页" loading="lazy">
+        <img src="./assets/pages_webp/page_128.webp" alt="第128页" loading="lazy">
         <div class="page-number">p.128</div>
       </div>
       <div class="page-text-area">
@@ -9945,7 +10100,7 @@ area. The levering on the Spine BeWwellca geselzt, Die [ithel sthehen Wahit, All
     </section>
     <section class="page-entry" id="page-129">
       <div class="page-image-area">
-        <img src="./assets/pages/page_129.jpg" alt="第129页" loading="lazy">
+        <img src="./assets/pages_webp/page_129.webp" alt="第129页" loading="lazy">
         <div class="page-number">p.129</div>
       </div>
       <div class="page-text-area">
@@ -10034,7 +10189,7 @@ Wie in der zweidimensionale...</div>
     </section>
     <section class="page-entry" id="page-130">
       <div class="page-image-area">
-        <img src="./assets/pages/page_130.jpg" alt="第130页" loading="lazy">
+        <img src="./assets/pages_webp/page_130.webp" alt="第130页" loading="lazy">
         <div class="page-number">p.130</div>
       </div>
       <div class="page-text-area">
@@ -10083,7 +10238,7 @@ suithed to the importande of the ithem.</div>
     </section>
     <section class="page-entry" id="page-131">
       <div class="page-image-area">
-        <img src="./assets/pages/page_131.jpg" alt="第131页" loading="lazy">
+        <img src="./assets/pages_webp/page_131.webp" alt="第131页" loading="lazy">
         <div class="page-number">p.131</div>
       </div>
       <div class="page-text-area">
@@ -10171,7 +10326,7 @@ cupboards etc.</div>
     </section>
     <section class="page-entry" id="page-132">
       <div class="page-image-area">
-        <img src="./assets/pages/page_132.jpg" alt="第132页" loading="lazy">
+        <img src="./assets/pages_webp/page_132.webp" alt="第132页" loading="lazy">
         <div class="page-number">p.132</div>
       </div>
       <div class="page-text-area">
@@ -10235,7 +10390,7 @@ Sei</div>
     </section>
     <section class="page-entry" id="page-133">
       <div class="page-image-area">
-        <img src="./assets/pages/page_133.jpg" alt="第133页" loading="lazy">
+        <img src="./assets/pages_webp/page_133.webp" alt="第133页" loading="lazy">
         <div class="page-number">p.133</div>
       </div>
       <div class="page-text-area">
@@ -10292,7 +10447,7 @@ jeliguing.</div>
     </section>
     <section class="page-entry" id="page-134">
       <div class="page-image-area">
-        <img src="./assets/pages/page_134.jpg" alt="第134页" loading="lazy">
+        <img src="./assets/pages_webp/page_134.webp" alt="第134页" loading="lazy">
         <div class="page-number">p.134</div>
       </div>
       <div class="page-text-area">
@@ -10341,7 +10496,7 @@ have to be modified jn design,</div>
     </section>
     <section class="page-entry" id="page-135">
       <div class="page-image-area">
-        <img src="./assets/pages/page_135.jpg" alt="第135页" loading="lazy">
+        <img src="./assets/pages_webp/page_135.webp" alt="第135页" loading="lazy">
         <div class="page-number">p.135</div>
       </div>
       <div class="page-text-area">
@@ -10415,7 +10570,7 @@ Verstanden hat,</div>
     </section>
     <section class="page-entry" id="page-136">
       <div class="page-image-area">
-        <img src="./assets/pages/page_136.jpg" alt="第136页" loading="lazy">
+        <img src="./assets/pages_webp/page_136.webp" alt="第136页" loading="lazy">
         <div class="page-number">p.136</div>
       </div>
       <div class="page-text-area">
@@ -10467,7 +10622,7 @@ olther elements into praminence,</div>
     </section>
     <section class="page-entry" id="page-137">
       <div class="page-image-area">
-        <img src="./assets/pages/page_137.jpg" alt="第137页" loading="lazy">
+        <img src="./assets/pages_webp/page_137.webp" alt="第137页" loading="lazy">
         <div class="page-number">p.137</div>
       </div>
       <div class="page-text-area">
@@ -10543,7 +10698,7 @@ t...</div>
     </section>
     <section class="page-entry" id="page-138">
       <div class="page-image-area">
-        <img src="./assets/pages/page_138.jpg" alt="第138页" loading="lazy">
+        <img src="./assets/pages_webp/page_138.webp" alt="第138页" loading="lazy">
         <div class="page-number">p.138</div>
       </div>
       <div class="page-text-area">
@@ -10616,7 +10771,7 @@ fachen Anforderungen gegeniber, Er hat als Konstruk-
     </section>
     <section class="page-entry" id="page-139">
       <div class="page-image-area">
-        <img src="./assets/pages/page_139.jpg" alt="第139页" loading="lazy">
+        <img src="./assets/pages_webp/page_139.webp" alt="第139页" loading="lazy">
         <div class="page-number">p.139</div>
       </div>
       <div class="page-text-area">
@@ -10666,7 +10821,7 @@ working on these lines.</div>
     </section>
     <section class="page-entry" id="page-140">
       <div class="page-image-area">
-        <img src="./assets/pages/page_140.jpg" alt="第140页" loading="lazy">
+        <img src="./assets/pages_webp/page_140.webp" alt="第140页" loading="lazy">
         <div class="page-number">p.140</div>
       </div>
       <div class="page-text-area">
@@ -10723,7 +10878,7 @@ fitlad into the grid,</div>
     </section>
     <section class="page-entry" id="page-141">
       <div class="page-image-area">
-        <img src="./assets/pages/page_141.jpg" alt="第141页" loading="lazy">
+        <img src="./assets/pages_webp/page_141.webp" alt="第141页" loading="lazy">
         <div class="page-number">p.141</div>
       </div>
       <div class="page-text-area">
@@ -10817,7 +10972,7 @@ Themes.</div>
     </section>
     <section class="page-entry" id="page-142">
       <div class="page-image-area">
-        <img src="./assets/pages/page_142.jpg" alt="第142页" loading="lazy">
+        <img src="./assets/pages_webp/page_142.webp" alt="第142页" loading="lazy">
         <div class="page-number">p.142</div>
       </div>
       <div class="page-text-area">
@@ -10933,7 +11088,7 @@ the grid’ divisian.</div>
     </section>
     <section class="page-entry" id="page-143">
       <div class="page-image-area">
-        <img src="./assets/pages/page_143.jpg" alt="第143页" loading="lazy">
+        <img src="./assets/pages_webp/page_143.webp" alt="第143页" loading="lazy">
         <div class="page-number">p.143</div>
       </div>
       <div class="page-text-area">
@@ -10984,7 +11139,7 @@ particular advantage.</div>
     </section>
     <section class="page-entry" id="page-144">
       <div class="page-image-area">
-        <img src="./assets/pages/page_144.jpg" alt="第144页" loading="lazy">
+        <img src="./assets/pages_webp/page_144.webp" alt="第144页" loading="lazy">
         <div class="page-number">p.144</div>
       </div>
       <div class="page-text-area">
@@ -11041,7 +11196,7 @@ siruction.</div>
     </section>
     <section class="page-entry" id="page-145">
       <div class="page-image-area">
-        <img src="./assets/pages/page_145.jpg" alt="第145页" loading="lazy">
+        <img src="./assets/pages_webp/page_145.webp" alt="第145页" loading="lazy">
         <div class="page-number">p.145</div>
       </div>
       <div class="page-text-area">
@@ -11122,7 +11277,7 @@ den Bau der lebendigen ...</div>
     </section>
     <section class="page-entry" id="page-146">
       <div class="page-image-area">
-        <img src="./assets/pages/page_146.jpg" alt="第146页" loading="lazy">
+        <img src="./assets/pages_webp/page_146.webp" alt="第146页" loading="lazy">
         <div class="page-number">p.146</div>
       </div>
       <div class="page-text-area">
@@ -11190,7 +11345,7 @@ measuremenis which formed</div>
     </section>
     <section class="page-entry" id="page-147">
       <div class="page-image-area">
-        <img src="./assets/pages/page_147.jpg" alt="第147页" loading="lazy">
+        <img src="./assets/pages_webp/page_147.webp" alt="第147页" loading="lazy">
         <div class="page-number">p.147</div>
       </div>
       <div class="page-text-area">
@@ -11254,7 +11409,7 @@ proportions of the human figure,</div>
     </section>
     <section class="page-entry" id="page-148">
       <div class="page-image-area">
-        <img src="./assets/pages/page_148.jpg" alt="第148页" loading="lazy">
+        <img src="./assets/pages_webp/page_148.webp" alt="第148页" loading="lazy">
         <div class="page-number">p.148</div>
       </div>
       <div class="page-text-area">
@@ -11331,7 +11486,7 @@ an impression of ananymity</div>
     </section>
     <section class="page-entry" id="page-149">
       <div class="page-image-area">
-        <img src="./assets/pages/page_149.jpg" alt="第149页" loading="lazy">
+        <img src="./assets/pages_webp/page_149.webp" alt="第149页" loading="lazy">
         <div class="page-number">p.149</div>
       </div>
       <div class="page-text-area">
@@ -11414,7 +11569,7 @@ of time and transcends it.</div>
     </section>
     <section class="page-entry" id="page-150">
       <div class="page-image-area">
-        <img src="./assets/pages/page_150.jpg" alt="第150页" loading="lazy">
+        <img src="./assets/pages_webp/page_150.webp" alt="第150页" loading="lazy">
         <div class="page-number">p.150</div>
       </div>
       <div class="page-text-area">
@@ -11551,7 +11706,7 @@ entwickellen sich alim...</div>
     </section>
     <section class="page-entry" id="page-151">
       <div class="page-image-area">
-        <img src="./assets/pages/page_151.jpg" alt="第151页" loading="lazy">
+        <img src="./assets/pages_webp/page_151.webp" alt="第151页" loading="lazy">
         <div class="page-number">p.151</div>
       </div>
       <div class="page-text-area">
@@ -11655,7 +11810,7 @@ eee cali</div>
     </section>
     <section class="page-entry" id="page-152">
       <div class="page-image-area">
-        <img src="./assets/pages/page_152.jpg" alt="第152页" loading="lazy">
+        <img src="./assets/pages_webp/page_152.webp" alt="第152页" loading="lazy">
         <div class="page-number">p.152</div>
       </div>
       <div class="page-text-area">
@@ -11798,7 +11953,7 @@ gebaul.</div>
     </section>
     <section class="page-entry" id="page-153">
       <div class="page-image-area">
-        <img src="./assets/pages/page_153.jpg" alt="第153页" loading="lazy">
+        <img src="./assets/pages_webp/page_153.webp" alt="第153页" loading="lazy">
         <div class="page-number">p.153</div>
       </div>
       <div class="page-text-area">
@@ -11916,7 +12071,7 @@ aut...</div>
     </section>
     <section class="page-entry" id="page-154">
       <div class="page-image-area">
-        <img src="./assets/pages/page_154.jpg" alt="第154页" loading="lazy">
+        <img src="./assets/pages_webp/page_154.webp" alt="第154页" loading="lazy">
         <div class="page-number">p.154</div>
       </div>
       <div class="page-text-area">
@@ -12035,7 +12190,7 @@ dem ru...</div>
     </section>
     <section class="page-entry" id="page-155">
       <div class="page-image-area">
-        <img src="./assets/pages/page_155.jpg" alt="第155页" loading="lazy">
+        <img src="./assets/pages_webp/page_155.webp" alt="第155页" loading="lazy">
         <div class="page-number">p.155</div>
       </div>
       <div class="page-text-area">
@@ -12113,7 +12268,7 @@ line.</div>
     </section>
     <section class="page-entry" id="page-156">
       <div class="page-image-area">
-        <img src="./assets/pages/page_156.jpg" alt="第156页" loading="lazy">
+        <img src="./assets/pages_webp/page_156.webp" alt="第156页" loading="lazy">
         <div class="page-number">p.156</div>
       </div>
       <div class="page-text-area">
@@ -12190,7 +12345,7 @@ In The Auntie Figure.</div>
     </section>
     <section class="page-entry" id="page-157">
       <div class="page-image-area">
-        <img src="./assets/pages/page_157.jpg" alt="第157页" loading="lazy">
+        <img src="./assets/pages_webp/page_157.webp" alt="第157页" loading="lazy">
         <div class="page-number">p.157</div>
       </div>
       <div class="page-text-area">
@@ -12219,7 +12374,7 @@ Stuhl, Mitla 7. Jh., Frankreion</div>
     </section>
     <section class="page-entry" id="page-158">
       <div class="page-image-area">
-        <img src="./assets/pages/page_158.jpg" alt="第158页" loading="lazy">
+        <img src="./assets/pages_webp/page_158.webp" alt="第158页" loading="lazy">
         <div class="page-number">p.158</div>
       </div>
       <div class="page-text-area">
@@ -12337,7 +12492,7 @@ fed</div>
     </section>
     <section class="page-entry" id="page-159">
       <div class="page-image-area">
-        <img src="./assets/pages/page_159.jpg" alt="第159页" loading="lazy">
+        <img src="./assets/pages_webp/page_159.webp" alt="第159页" loading="lazy">
         <div class="page-number">p.159</div>
       </div>
       <div class="page-text-area">
@@ -12437,7 +12592,7 @@ FRaslerneizen. Die Stadt liegt a...</div>
     </section>
     <section class="page-entry" id="page-160">
       <div class="page-image-area">
-        <img src="./assets/pages/page_160.jpg" alt="第160页" loading="lazy">
+        <img src="./assets/pages_webp/page_160.webp" alt="第160页" loading="lazy">
         <div class="page-number">p.160</div>
       </div>
       <div class="page-text-area">
@@ -12491,7 +12646,7 @@ achievement,</div>
     </section>
     <section class="page-entry" id="page-161">
       <div class="page-image-area">
-        <img src="./assets/pages/page_161.jpg" alt="第161页" loading="lazy">
+        <img src="./assets/pages_webp/page_161.webp" alt="第161页" loading="lazy">
         <div class="page-number">p.161</div>
       </div>
       <div class="page-text-area">
@@ -12657,7 +12812,7 @@ VWillisim Mi....</div>
     </section>
     <section class="page-entry" id="page-162">
       <div class="page-image-area">
-        <img src="./assets/pages/page_162.jpg" alt="第162页" loading="lazy">
+        <img src="./assets/pages_webp/page_162.webp" alt="第162页" loading="lazy">
         <div class="page-number">p.162</div>
       </div>
       <div class="page-text-area">
@@ -12819,8 +12974,44 @@ Lee Garbusier 160, 169,...</div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var sections = document.querySelectorAll('.page-entry');
+      var sidebar = document.getElementById('sidebar');
+      var overlay = document.getElementById('overlay');
+      var hamburger = document.getElementById('hamburger-btn');
       var navLinks = document.querySelectorAll('.sidebar-nav a');
+
+      function openSidebar() {
+        sidebar.classList.add('open');
+        overlay.classList.add('visible');
+        hamburger.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeSidebar() {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('visible');
+        hamburger.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      hamburger.addEventListener('click', function() {
+        if (sidebar.classList.contains('open')) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+
+      overlay.addEventListener('click', closeSidebar);
+
+      navLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+          if (window.innerWidth <= 768) {
+            setTimeout(closeSidebar, 200);
+          }
+        });
+      });
+
+      // Intersection observer for active nav
+      var sections = document.querySelectorAll('.page-entry');
       var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
@@ -12833,7 +13024,7 @@ Lee Garbusier 160, 169,...</div>
             });
           }
         });
-      }, { threshold: 0.2 });
+      }, { threshold: 0.15 });
       sections.forEach(function(section) { observer.observe(section); });
     });
   </script>
