@@ -299,13 +299,10 @@
       background: none;
       border: none;
       cursor: pointer;
-      padding: 8px;
-      position: absolute;
-      top: 1.2rem;
-      right: 1rem;
-      z-index: 200;
+      padding: 6px;
       width: 36px;
       height: 28px;
+      flex-shrink: 0;
     }
     .hamburger span {
       display: block;
@@ -390,6 +387,12 @@
     @media (max-width: 768px) {
       body { flex-direction: column; }
       .hamburger { display: block; }
+      .mobile-top-bar {
+        display: flex;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 120;
+      }
       .overlay { display: none; }
       .overlay.visible { display: block; }
 
@@ -410,6 +413,7 @@
       .main-content {
         margin-left: 0;
         max-width: 100%;
+        padding-top: 3.2rem;
       }
 
       .page-entry {
@@ -463,11 +467,14 @@
 </head>
 <body>
   <div class="overlay" id="overlay"></div>
+  <div class="mobile-top-bar" id="mobile-top-bar">
+    <button class="hamburger" id="hamburger-btn" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+    <span class="mobile-title">平面设计中的网格系统</span>
+  </div>
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
-      <button class="hamburger" id="hamburger-btn" aria-label="菜单">
-        <span></span><span></span><span></span>
-      </button>
       <h1>平面设计中的<br>网格系统</h1>
       <div class="subtitle">Grid Systems in Graphic Design</div>
       <div class="author">Josef Müller-Brockmann</div>
